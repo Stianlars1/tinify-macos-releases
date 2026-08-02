@@ -1,0 +1,49 @@
+name: Tinify for Mac bug
+description: Report a reproducible problem in the Mac app.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include private images, API keys, tokens, Keychain data or sensitive paths.
+  - type: input
+    id: app-version
+    attributes:
+      label: App version and build
+      placeholder: 1.0.0 (1)
+    validations:
+      required: true
+  - type: input
+    id: macos-version
+    attributes:
+      label: macOS version
+    validations:
+      required: true
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Processor
+      options:
+        - Apple silicon
+        - Intel
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result and reproduction steps
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed secrets, private images and sensitive filenames or paths.
+          required: true
