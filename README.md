@@ -16,7 +16,9 @@ Sparkle updates use the separately signed architecture feed at
 ## Verify a download
 
 Every published architecture entry records the exact byte length and SHA-256
-of its notarized and stapled DMG. On macOS:
+of its notarized and stapled DMG. Stable assets use the exact name
+`Tinify-<version>-<architecture>.dmg` under the matching `v<version>` tag. On
+macOS:
 
 ```sh
 shasum -a 256 /path/to/Tinify.dmg

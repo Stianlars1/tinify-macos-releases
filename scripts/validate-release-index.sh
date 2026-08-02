@@ -2,10 +2,18 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-index="${repo_root}/releases.json"
+if (( $# > 1 )); then
+  echo "usage: $0 [release-index.json]" >&2
+  exit 64
+fi
+index="$repo_root/releases.json"
+if (( $# == 1 )); then
+  index="$1"
+fi
 
 jq -e '
-  .schemaVersion == 1
+  (keys | sort) == ["channel", "latest", "product", "releases", "schemaVersion"]
+  and .schemaVersion == 1
   and .product == "Tinify for Mac"
   and .channel == "stable"
   and (.latest == null or (.latest | type == "string"))
@@ -13,11 +21,13 @@ jq -e '
   and (
     .releases
     | all(
-        (.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))
+        . as $release
+        | (keys | sort) == ["architectures", "build", "minimumMacOS", "publishedAt", "releaseNotesUrl", "releaseUrl", "version"]
+        and (.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))
         and (.build | test("^[1-9][0-9]*$"))
         and (.publishedAt | fromdateiso8601 | type == "number")
-        and (.releaseUrl | test("^https://github\\.com/Stianlars1/tinify-macos-releases/releases/tag/"))
-        and (.releaseNotesUrl | test("^https://github\\.com/Stianlars1/tinify-macos-releases/releases/tag/"))
+        and (.releaseUrl == "https://github.com/Stianlars1/tinify-macos-releases/releases/tag/v\(.version)")
+        and (.releaseNotesUrl == .releaseUrl)
         and (.minimumMacOS | test("^[0-9]+\\.[0-9]+$"))
         and (.architectures | type == "object")
         and (.architectures | keys | length >= 1)
@@ -26,9 +36,16 @@ jq -e '
           | to_entries
           | all(
               (.key == "arm64" or .key == "x86_64")
-              and (.value.downloadUrl | test("^https://github\\.com/Stianlars1/tinify-macos-releases/releases/download/"))
+              and (.value | keys | sort) == ["bytes", "downloadUrl", "sha256"]
+              and (
+                .value.downloadUrl
+                == "https://github.com/Stianlars1/tinify-macos-releases/releases/download/v\($release.version)/Tinify-\($release.version)-\(.key).dmg"
+              )
               and (.value.sha256 | test("^[0-9a-f]{64}$"))
-              and (.value.bytes | type == "number" and . > 0)
+              and (
+                .value.bytes
+                | type == "number" and . > 0 and floor == .
+              )
             )
         )
       )
