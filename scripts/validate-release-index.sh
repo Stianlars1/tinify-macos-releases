@@ -23,7 +23,7 @@ jq -e '
     | all(
         . as $release
         | (keys | sort) == ["architectures", "build", "minimumMacOS", "publishedAt", "releaseNotesUrl", "releaseUrl", "version"]
-        and (.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))
+        and (.version | test("^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"))
         and (.build | test("^[1-9][0-9]*$"))
         and (.publishedAt | fromdateiso8601 | type == "number")
         and (.releaseUrl == "https://github.com/Stianlars1/tinify-macos-releases/releases/tag/v\(.version)")
@@ -56,6 +56,13 @@ jq -e '
     else
       .latest == .releases[0].version
       and ([.releases[].version] | length == (unique | length))
+      and (
+        [.releases[].version | split(".") | map([length, .])] as $versions
+        | all(
+            range(1; $versions | length);
+            $versions[. - 1] > $versions[.]
+          )
+      )
     end
   )
 ' "${index}" >/dev/null
