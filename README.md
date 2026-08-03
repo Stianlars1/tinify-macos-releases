@@ -4,12 +4,17 @@ This is the public release and issue repository for Tinify for Mac. It contains
 release metadata, checksums, release notes and downloadable release assets. The
 application source code is maintained separately and is not published here.
 
+Versioned Markdown under [`release-notes`](./release-notes) is the canonical
+user-facing release-note source. The same exact file is used for the GitHub
+Release body and rendered on `https://tinify.dev/changelog/<version>`.
+
 No release is considered public until it appears in both:
 
 - [`releases.json`](./releases.json); and
 - [GitHub Releases](https://github.com/Stianlars1/tinify-macos-releases/releases).
 
 Official downloads will also be published at `https://tinify.dev/downloads`.
+The complete release history is published at `https://tinify.dev/changelog`.
 Sparkle updates use the separately signed architecture feed at
 `https://updates.tinify.dev/stable/<architecture>/appcast.xml`.
 

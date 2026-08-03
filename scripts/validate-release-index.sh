@@ -60,4 +60,20 @@ jq -e '
   )
 ' "${index}" >/dev/null
 
+while IFS= read -r version; do
+  "$repo_root/scripts/validate-release-note.sh" \
+    "$version" \
+    "$repo_root/release-notes/v${version}.md"
+done < <(jq -r '.releases[].version' "$index")
+
+shopt -s nullglob
+for release_note in "$repo_root"/release-notes/v*.md; do
+  release_note_name="$(basename "$release_note")"
+  release_note_version="${release_note_name#v}"
+  release_note_version="${release_note_version%.md}"
+  "$repo_root/scripts/validate-release-note.sh" \
+    "$release_note_version" \
+    "$release_note"
+done
+
 echo "Tinify for Mac release index verified"
