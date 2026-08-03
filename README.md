@@ -13,6 +13,10 @@ No release is considered public until it appears in both:
 - [`releases.json`](./releases.json); and
 - [GitHub Releases](https://github.com/Stianlars1/tinify-macos-releases/releases).
 
+The release index is fail-closed: versions must be unique and listed in
+strictly descending semantic-version order. Its first entry must match
+`latest`, preventing an older build from being labeled as the current release.
+
 Official downloads will also be published at `https://tinify.dev/downloads`.
 The complete release history is published at `https://tinify.dev/changelog`.
 Sparkle updates use the separately signed architecture feed at
