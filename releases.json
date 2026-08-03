@@ -6,16 +6,16 @@
   "releases": [
     {
       "version": "1.0.0",
-      "build": "1",
+      "build": "2",
       "minimumMacOS": "14.0",
-      "publishedAt": "2026-08-03T11:59:29Z",
+      "publishedAt": "2026-08-03T12:45:14Z",
       "releaseUrl": "https://github.com/Stianlars1/tinify-macos-releases/releases/tag/v1.0.0",
       "releaseNotesUrl": "https://github.com/Stianlars1/tinify-macos-releases/releases/tag/v1.0.0",
       "architectures": {
         "arm64": {
           "downloadUrl": "https://github.com/Stianlars1/tinify-macos-releases/releases/download/v1.0.0/Tinify-1.0.0-arm64.dmg",
-          "sha256": "dc15ea2f19d28707ccfa07de80a1cd1f41cf47cd3870d0083a54e09c30ad0866",
-          "bytes": 113112632
+          "sha256": "384412a2dd18ad7ccd3a8ecba135bdc6543c76815e921542a467042e40a2d1de",
+          "bytes": 113095051
         }
       }
     }
