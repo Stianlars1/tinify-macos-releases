@@ -2,8 +2,23 @@
   "schemaVersion": 1,
   "product": "Tinify for Mac",
   "channel": "stable",
-  "latest": "1.0.3",
+  "latest": "1.0.4",
   "releases": [
+    {
+      "version": "1.0.4",
+      "build": "6",
+      "minimumMacOS": "14.0",
+      "publishedAt": "2026-08-06T21:27:21Z",
+      "releaseUrl": "https://github.com/Stianlars1/tinify-macos-releases/releases/tag/v1.0.4",
+      "releaseNotesUrl": "https://github.com/Stianlars1/tinify-macos-releases/releases/tag/v1.0.4",
+      "architectures": {
+        "arm64": {
+          "downloadUrl": "https://github.com/Stianlars1/tinify-macos-releases/releases/download/v1.0.4/Tinify-1.0.4-arm64.dmg",
+          "sha256": "b5519c10b06e899f5e2301d35a88646a6a504176754da42232cc709acc77e8d0",
+          "bytes": 113244657
+        }
+      }
+    },
     {
       "version": "1.0.3",
       "build": "5",
